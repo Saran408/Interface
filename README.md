@@ -29,50 +29,68 @@ After performing the functions display the remaining balance of the user.
 ```c#
 
 using System;
-public interface Bank
-{
-    void deposit();
-    void withdrawal();
-}
 
-public class Example : Bank
+namespace exp9
 {
-    int amount, ch, balance = 5000;
-    public Example()
+    public interface bank
     {
-        Console.WriteLine("1.Deposit\n2.Withdrawal");
-        ch = Convert.ToInt32(Console.ReadLine());
-        if (ch == 1)
+        void deposit(int amount);
+        void withdraw(int amount);
+    }
+    public class accnt : bank
+    {
+        public int balance = 5000, amount;
+        int a = 1;
+        public accnt()
         {
-            deposit();
+
+            while (a == 1)
+            {
+                Console.WriteLine("Enter 1 to deposit and 2 to withdraw and 3 to display your balance:");
+                int choice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
+                switch (choice)
+                {
+                    case 2:
+                        Console.WriteLine("Enter the amount to be withdrawn");
+                        amount = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine();
+                        withdraw(amount);
+                        break;
+                    case 1:
+                        Console.WriteLine("Enter the amount to deposit");
+                        amount = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine();
+                        deposit(amount);
+                        break;
+                    case 3:
+                        display();
+                        break;
+                }
+            }
+            Console.ReadKey();
+
         }
-        else
+        public void deposit(int amount)
         {
-            withdrawal();
+            balance += amount;
+        }
+        public void withdraw(int amount)
+        {
+            balance -= amount;
+        }
+        public void display()
+        {
+            Console.WriteLine("Your remaining balance is " + balance);
+            a = 0;
         }
     }
-    public void withdrawal()
+    class Program
     {
-        int amount = Convert.ToInt32(Console.ReadLine());
-        balance -= amount;
-        Console.WriteLine(balance);
-    }
-
-    public void deposit()
-    {
-        int amount = Convert.ToInt32(Console.ReadLine());
-        balance += amount;
-        Console.WriteLine(balance);
-    }
-}
-
-public class Hello
-{
-    public static void Main()
-    {
-        Example c = new Example();
-        c.deposit();
-        c.withdrawal();
+        static void Main(string[] args)
+        {
+            accnt p1 = new accnt();
+        }
     }
 }
 ```
